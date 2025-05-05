@@ -86,7 +86,7 @@ These projects are submitted as part of the **MLOps coursework** under the **MSc
 
 ## 🙌 Acknowledgements
 
-* **Course Instructor**: *\Mr. Sandeep Srivastava*
+* **Course Instructor**: *Mr. Sandeep Srivastava*
 * **Institution**: Indian Institute of Information Technology, Lucknow
 * **Academic Year**: 2024–25
 
