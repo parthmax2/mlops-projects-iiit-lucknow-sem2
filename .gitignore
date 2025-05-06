@@ -1,0 +1,48 @@
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Python environment (virtualenvs)
+.env
+.venv
+IDS_env
+# VS Code settings and system files
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Logs and metadata
+*.log
+
+# Jupyter notebooks checkpoints
+.ipynb_checkpoints/
+
+# Data and models
+*.csv
+*.tsv
+*.zip
+*.tar.gz
+*.pt
+*.pth
+*.h5
+*.mp4
+
+# Allow DVC-tracked files
+!data/*.dvc
+!data/**/*.dvc
+
+# DVC-related
+.cache/
+.dvc/
+dvc.lock
+
+
+# Prevent pushing LFS by mistake
+*.dll
+*.lib
+*.pyd
+*.so
+*.exe
+*.bin
