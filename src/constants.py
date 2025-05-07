@@ -1,0 +1,13 @@
+
+WORKSPACE_PATH = 'Tensorflow/workspace'
+SCRIPTS_PATH = 'Tensorflow/scripts'
+APIMODEL_PATH = 'Tensorflow/models'
+PREPROCESSDATA_PATH = WORKSPACE_PATH + '/preprocessData'
+IMAGE_PATH = WORKSPACE_PATH + '/images'
+MODEL_PATH = WORKSPACE_PATH + '/models'
+PRETRAINED_MODEL_PATH = WORKSPACE_PATH + '/pre-trained-models'
+CONFIG_PATH = MODEL_PATH + '/my_ssd_mobnet/pipeline.config'
+CHECKPOINT_PATH = MODEL_PATH + '/my_ssd_mobnet/'
+CUSTOM_MODEL_NAME = 'my_ssd_mobnet'
+PRETRAINED_MODEL_PATH = 'Tensorflow/workspace/pre-trained-models'
+MODEL_PATH = 'Tensorflow/workspace/models'

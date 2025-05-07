@@ -1,0 +1,26 @@
+<annotation>
+	<folder>collectedimages</folder>
+	<filename>hello.3ffb2bd1-203d-11f0-ac36-d493903cb74e.jpg</filename>
+	<path>C:\Users\DIPIKA VISHWAKARMA\Desktop\signlan\Sign-Language-Recognition-Project\Tensorflow\workspace\images\collectedimages\hello.3ffb2bd1-203d-11f0-ac36-d493903cb74e.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>640</width>
+		<height>480</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>Hello</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>492</xmin>
+			<ymin>187</ymin>
+			<xmax>636</xmax>
+			<ymax>380</ymax>
+		</bndbox>
+	</object>
+</annotation>
