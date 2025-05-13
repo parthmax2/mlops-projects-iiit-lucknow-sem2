@@ -172,3 +172,16 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+/data
+
+# DVC-tracked data
+/data/
+!data.dvc
+
+s3_storage/
+__pycache__/
+*.pyc
+data/
+s3_storage/
+.env
+mlruns/

@@ -1,0 +1,4 @@
+[core]
+    remote = myremote
+['remote "myremote"']
+    url = C:\Users\user\OneDrive\Desktop\ML\Mlops\music_genre_prediction_mlops_project_MSA24025\s3_storage
