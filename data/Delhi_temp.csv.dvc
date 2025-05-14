@@ -1,0 +1,5 @@
+outs:
+- md5: 9c54f5740900c03c06e8c22c6df6685e
+  size: 51593
+  hash: md5
+  path: Delhi_temp.csv
