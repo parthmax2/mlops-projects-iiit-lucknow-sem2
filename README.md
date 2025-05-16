@@ -2,6 +2,7 @@
 [Link](https://github.com/MansiDakhale/MRI_SYNTHESIS_PROJECT)
 
 # 🚀 Project Title
+TSGAN: Tumor-Aware Synthesis of Contrast-Enhanced MRI Without Contrast Agent
 
 ## 👤 Author
 - **Name**: Mansi Girdhar Dakhale
