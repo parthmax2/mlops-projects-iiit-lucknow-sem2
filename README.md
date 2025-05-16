@@ -1,104 +1,82 @@
+#  Brain-Tumor-Detection-using-Hybrid-DL-Model
+
+A production-ready **Brain Tumor Detection System** that leverages **EfficientNetB0** for deep feature extraction and **XGBoost** for classification. Built using a full **MLOps pipeline**, this project includes modular code, version control (Git + DVC), experiment tracking (MLflow), and a deployable **Streamlit web application**.
 
 ---
 
-#  MLOps Projects – MSc AI-ML | IIIT Lucknow | Semester 2
+## Project Overview
+
+This system detects and classifies brain tumors from MRI images into multiple categories with high accuracy. It is designed with **scalability**, **modularity**, and **reproducibility** in mind — ideal for research, diagnostics support, and real-world deployment.
 
 ---
 
-## This repository showcases the MLOps course projects developed by MSc AI-ML students of IIIT Lucknow (Semester 2). Each project demonstrates an end-to-end machine learning solution using MLOps best practices like data versioning, experiment tracking, containerization, and reproducibility.
+##  Features
+
+-  **Pretrained EfficientNetB0** as a feature extractor
+-  **XGBoost** classifier for robust prediction
+-  **Modular architecture**: data loading, preprocessing, feature extraction, training, prediction
+-  **Streamlit App** to run predictions on single images
+-  **MLflow** for experiment tracking and reproducibility
+-  **DVC** for dataset versioning and model tracking
+-  Detailed logging and custom exception handling
+-  Displays both **raw** and **preprocessed** image in UI
 
 ---
 
-## 🎯 Key Objectives
+##  Tech Stack
 
-* Build robust ML pipelines using **DVC**
-* Track experiments and models using **MLflow**
-* Deploy models with **FastAPI** or **Flask**
-* Containerize applications using **Docker**
-* Maintain reproducibility and version control using **Git**
-
----
-
-## 📁 Repository Structure
-
-```plaintext
-├── README.md
-├── projects/
-│   ├── student-name.md        # Individual project write-ups
-├── assets/                    # Architecture diagrams, screenshots, etc.
-└── .github/                   # (Optional) contribution guidelines, workflows
-```
+- **Languages**: Python
+- **Deep Learning**: TensorFlow / Keras (EfficientNetB0)
+- **Machine Learning**: XGBoost
+- **MLOps Tools**:
+  - MLflow (experiment tracking)
+  - DVC (data & model versioning)
+  - Streamlit (app UI)
+- **Others**: NumPy, OpenCV, PIL, scikit-learn, joblib
 
 ---
 
-## 🚀 Project Submission Instructions
+##  Project Structure
 
-🔁 **Each student must:**
+├── src/
+│ ├── config_reader.py
+│ ├── data_loader.py
+│ ├── preprocessing.py
+│ ├── feature_extraction.py
+│ ├── XG_Boost_classifier.py   (model.py)
+│ ├── main.py
+│ ├── predict_img.py
+│ ├── logger.py
+│ └── exception.py
+├── app.py
+├── config/
+│ └── config.yaml
+├── artifacts/
+│ └── (models, encoders, etc.)
+├── data/
+├── dvc.yaml
+├── requirements.txt
+├── MLproject
+└── README.md
 
-1. **Create a new Git branch** named after your enrollment number (e.g., `msa24021`).
-2. Add your project markdown file to the `projects/` folder (`projects/yourname.md`).
-3. Update the table below with your project details.
-4. **Push your branch** to this repository.
-
-| Student Name    | Enrollment No. | Project Title               | Branch Name | PPT Link                       | Summary                                 |
-| --------------- | -------------- | --------------------------- | ----------- | ------------------------------ | --------------------------------------- |
-| Example Student | msa24021       | Movie Recommendation System | `msa24021`  | [PPT](https://link-to-ppt.com) | Content-based + collaborative filtering |
-| ...             | ...            | ...                         | ...         | ...                            | ...                                     |
-
----
-
-## 📝 Project Documentation Template
-
-Inside your branch, create a file `projects/yourname.md` with the following structure:
-
-```markdown
-# 🚀 Project Title
-
-## 👤 Author
-- **Name**: Your Full Name
-- **Enrollment No.**: msa24XXX
-- **Program**: MSc AI-ML
-- **Institute**: IIIT Lucknow
-- **Semester**: 2
-
-## 🔗 Links
-- 📁 GitHub Repository: [Link](https://github.com/your-mlops-repo)
-- 📊 Project Presentation: [PPT](https://link-to-ppt.com)
-
-## 🧠 Problem Statement
-Briefly describe the real-world problem your project addresses.
-
-## 🛠️ Tech Stack
-- Programming: Python
-- ML Libraries: Scikit-learn, TensorFlow, etc.
-- MLOps Tools: DVC, MLflow, Docker, FastAPI
-
-## ⚙️ MLOps Implementation
-- ✔️ Data versioning with DVC  
-- ✔️ Experiment tracking via MLflow  
-- ✔️ REST API for inference using FastAPI/Flask  
-- ✔️ Docker containerization for portability  
-
-## 📸 Screenshots (Optional)
-Insert architecture diagrams, API snapshots, UI screens, etc.
-
-## 🗂️ Folder Structure (Optional)
-Short overview of your project repo structure.
-```
 
 ---
 
-## 🎓 Course Context
+Usage
+--> Open http://localhost:5000
 
-These projects are submitted as part of the **MLOps coursework** for the **MSc AI-ML** program at IIIT Lucknow. The focus is on turning ML models into scalable, production-ready solutions using real-world tools.
+--> Upload an MRI scan (JPG/PNG)
+
+--> View:
+
+        - Uploaded image
+
+        - Preprocessed version
+
+        - Predicted tumor type
 
 ---
 
-## 🙌 Acknowledgements
-
-* **Course Instructor**: *Mr. Sandeep Srivastava*
-* **Institution**: Indian Institute of Information Technology, Lucknow
-* **Academic Year**: 2024–25
-
----
-
+CLI Prediction :- 
+For single image inference:
+python src/predict_img.py --image_path path/to/image.jpg

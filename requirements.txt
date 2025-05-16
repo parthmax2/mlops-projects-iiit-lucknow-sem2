@@ -1,0 +1,28 @@
+# Core DL/ML
+tensorflow==2.15.0
+scikit-learn==1.4.1.post1
+numpy==1.26.4
+pandas==2.2.2
+matplotlib==3.8.4
+opencv-python==4.9.0.80
+seaborn==0.13.2
+Pillow==10.3.0
+
+# MLOps tools
+mlflow==2.11.3
+dvc==3.48.4
+
+# UI
+streamlit==1.35.0
+
+# Logging & Utility
+loguru==0.7.2
+
+# Optional but helpful
+pyyaml==6.0.1
+tqdm==4.66.2
+
+joblib
+
+
+mlflow

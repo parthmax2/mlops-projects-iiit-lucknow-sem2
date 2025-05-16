@@ -1,0 +1,67 @@
+base:
+  project_name: brain_tumor_detection
+  random_state: 42
+  image_size: [224, 224]
+  channels: 3
+  batch_size: 32
+  epochs: 20
+  test_size: 0.2
+  validation_split: 0.1
+  num_classes: 4
+  model_name: EfficientNetB0
+  use_data_augmentation: true
+  class_names: ["glioma_tumor", "meningioma_tumor", "no_tumor", "pituitary_tumor"]
+
+
+paths:
+  train_dir: data/raw/Training
+  test_dir: data/raw/Testing
+  processed_dir: data/processed/
+  label_path: data/processed/label_encoder.pkl
+  features_path: data/processed/features.npy
+  labels_path: data/processed/labels.npy
+  artifacts: artifacts/
+  model_dir: artifacts/models/
+  xgboost_model: artifacts/models/xgboost_model.pkl
+  history_path: artifacts/history/train_history.json
+  report_dir: artifacts/reports
+  logs: logs/
+  mlruns_dir: mlruns/
+  cnn_features_path: data/processed/cnn_features.npy
+  efficientnet_model_path: artifacts/models/efficientnet_model.h5
+
+
+
+
+model:
+  base_model: EfficientNetB0
+  fine_tune: false
+  include_top: false
+  weights: imagenet
+  pooling: avg
+
+xgboost:
+  n_estimators: 100
+  max_depth: 5
+  learning_rate: 0.1
+  objective: multi:softprob
+  num_class: 4
+  subsample: 0.8
+
+mlflow:
+  tracking_uri: http://127.0.0.1:5000
+  experiment_name: brain_tumor_detection
+
+dvc:
+  remote: myremote
+
+logging:
+  log_level: INFO
+  log_format: "[%(asctime)s: %(levelname)s: %(module)s: %(message)s]"
+
+
+preprocessing:
+  apply_denoising: true
+  apply_histogram_equalization: true
+  apply_smoothing: true
+  apply_sharpening: true
