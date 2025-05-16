@@ -1,0 +1,628 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Crop Recommendation System</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <style>
+      html {
+  scroll-behavior: smooth; /* Ensures smooth scrolling */
+}
+
+      body {
+        background: url('/static/farm.jpg') no-repeat center center fixed;
+        background-size: cover;
+        font-family: 'Arial', sans-serif;
+        color: #fff;
+      }
+
+      .navbar {
+  position: fixed; /* Make the navbar fixed at the top */
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: #0a7a35; /* Dark green */
+  z-index: 1000; /* Ensure the navbar is on top of other elements */
+  padding: 10px 0;
+}
+      .navbar-brand {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #fff !important;
+      }
+
+      .nav-link {
+        color: #fff !important;
+      }
+
+      .navbar-nav a:hover {
+        color: #47e684 !important; /* Light green on hover */
+      }
+
+      h1 {
+        font-size: 3.5rem; /* Initial font size */
+        text-align: center;
+        color: #ffffff;
+        font-weight: bold;
+        text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6); /* Adding shadow for depth */
+        margin-top: 20vh; /* Position it lower down for better visibility */
+      }
+
+      /* Logo Styling */
+      .logo-img {
+        width: 10%; /* Initially 10% of the screen width */
+        height: auto;
+        text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);
+        vertical-align: middle;
+        margin-left: 10px; /* Space between text and logo */
+        display: inline-block;
+       }
+       
+       .card {
+        background-color: #ecf0f1;
+        border: none;
+        border-radius: 10px;
+        transition: transform 0.2s, box-shadow 0.2s;
+        margin: 20px 0;
+      }
+
+      .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      }
+
+      .card-title {
+        color: #2c3e50;
+        font-weight: bold;
+      }
+
+
+      .form-container {
+        background-color: #b5f4cde4; /* Light green background */
+        padding: 30px;
+        border-radius: 10px;
+        margin-top: 30px;
+        opacity: 0.9;
+      }
+
+      form label {
+        font-weight: bold;
+        color: #34495e;
+      }
+
+      .form-group {
+        position: relative;
+      }
+
+      .form-group i {
+        position: absolute;
+        left: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #34495e;
+      }
+
+      .form-control {
+        padding-left: 30px; /* Space for icon */
+        border-radius: 10px;
+        border: 1px solid #b3c2c8;
+      }
+
+      .btn-primary {
+        background-color: #22a152;
+        border: none;
+        border-radius: 20px;
+        padding: 10px 20px;
+      }
+
+      .btn-primary:hover {
+        background-color: #47e684;
+      }
+      
+       /* Crop Recommendation Card Styling */
+       .recommend-card {
+        background-color: #ffffff;
+        color: #2c3e50;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        width: 100%;
+        max-width: 300px;
+        margin: 20px auto;
+        text-align: center;
+      }
+      .recommend-card img {
+        width: 100%;
+        height: auto;
+        border-bottom: 1px solid #ddd;
+      }
+      .recommend-card .card-body {
+        padding: 15px;
+      }
+      .recommend-card .card-title {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #0a7a35;
+      }
+      .recommend-card .crop-name {
+        font-size: 1.25rem;
+        color: #0a7a35;
+        margin-top: 10px;
+        font-weight: 600;
+      }
+      .recommend-card .card-text {
+        font-size: 1rem;
+        color: #555;
+        margin-top: 10px;
+        line-height: 1.5;
+      }
+      
+      .card {
+        background-color: #ecf0f1;
+        border: none;
+        border-radius: 10px;
+        transition: transform 0.2s, box-shadow 0.2s;
+      }
+
+      .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      }
+
+      .card-title {
+        color: #2c3e50;
+        font-weight: bold;
+      }
+
+      footer {
+        background-color: #0a7a35;
+        color: #ecf0f1;
+        text-align: center;
+        padding: 10px 0;
+        margin-top: 30px;
+      }
+
+      footer a {
+        color: #ecf0f1;
+        text-decoration: none;
+      }
+
+      footer a:hover {
+        text-decoration: underline;
+      }
+
+      /* Search bar styles */
+      .form-control, .btn-outline-success {
+        border-radius: 25px;
+      }
+
+      .form-control {
+        border: 1px solid #fff;
+        background-color: rgba(255, 255, 255, 0.7);
+      }
+
+      .btn-outline-success {
+        color: #fff;
+        border: 1px solid #fff;
+      }
+
+      .btn-outline-success:hover {
+        background-color: #47e684;
+      }
+
+      /* Navbar hamburger menu */
+      .navbar-toggler-icon {
+        background-color: #fff;
+      }
+      /* About Section */
+.about-container {
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 10px;
+  padding: 30px;
+  margin-top: 30px;
+}
+
+.about-section-header {
+  color: #2c6f2e; /* Green */
+  text-align: center;
+  margin-bottom: 40px;
+  font-weight: bold;
+  font-size: 1.8rem;
+}
+
+.about-content {
+  color: #34495e;
+  font-size: 1.1rem;
+  line-height: 1.7;
+}
+
+.about-content ul {
+  list-style-type: none;
+  padding-left: 20px;
+}
+
+.about-content li {
+  margin-bottom: 15px;
+  font-size: 1.1rem;
+}
+
+.team-member {
+  background-color: #f4f4f9;
+  padding: 20px;
+  margin: 10px 0;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.team-member h5 {
+  color: #2c6f2e;
+  font-weight: bold;
+}
+
+.team-member p {
+  font-size: 1.1rem;
+  color: #555;
+}
+
+.team-member i {
+  color: #0a7a35;
+  font-size: 1.3rem;
+}
+
+.team-member-icon {
+  font-size: 2.5rem;
+  margin-bottom: 15px;
+}
+
+/* Footer Styling */
+footer {
+  background-color: #0a7a35; /* Dark green background */
+  color: #ecf0f1; /* Light text color */
+  text-align: center;
+  padding: 30px 0;
+  margin-top: 40px;
+}
+
+footer .container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+footer p {
+  margin: 10px 0;
+  font-size: 1rem;
+}
+
+footer p strong {
+  color: #fff; /* Make team and institution names stand out */
+}
+
+footer ul {
+  list-style-type: none;
+  padding: 0;
+  font-size: 1rem;
+  line-height: 1.8;
+  margin-top: 10px;
+}
+
+footer ul li {
+  margin-bottom: 8px;
+}
+
+footer a {
+  color: #ecf0f1;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}
+
+/* Add responsiveness for mobile devices */
+@media (max-width: 768px) {
+  footer p {
+    font-size: 0.9rem;
+  }
+
+  footer ul li {
+    font-size: 0.9rem;
+  }
+
+  footer .container {
+    padding: 0 15px;
+  }
+}
+
+      /* Make sure the hamburger only appears on mobile or smaller devices */
+      @media (max-width: 768px) {
+        .navbar-collapse {
+          background-color: #0a7a35; /* Green background for mobile menu */
+        }
+        h1 {
+          font-size: 2.5rem; 
+          margin-top: 10vh; 
+        }
+
+        .logo-img {
+          width: 15%; 
+        }
+
+      }
+      
+      /* About and Contact Sections */
+      .section-title {
+        color: #2c6f2e; /* Green text */
+        text-align: center;
+        margin-bottom: 30px;
+      }
+
+      .about-container, .contact-container {
+        background-color: rgba(255, 255, 255, 0.8);
+        border-radius: 10px;
+        padding: 30px;
+        margin-top: 30px;
+      }
+
+      .contact-container form input,
+      .contact-container form textarea {
+        border-radius: 10px;
+        margin-bottom: 20px;
+        border: 1px solid #ccc;
+        padding: 10px;
+      }
+
+      .contact-container form button {
+        background-color: #22a152;
+        border: none;
+        border-radius: 20px;
+        padding: 10px 20px;
+        color: #fff;
+      }
+
+      .contact-container form button:hover {
+        background-color: #47e684;
+      }
+
+    </style>
+  </head>
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="/">Crop Recommendation</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav me-auto">
+            <li class="nav-item" >
+              <a class="nav-link" href="/#">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#about">About</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#cropInfoSection">Crop Info</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#contact">Contact</a>
+            </li>
+          </ul>
+          <form class="d-flex">
+            <input class="form-control me-2" type="search" placeholder="Search"  id="cropSearchInput"  oninput="searchCrops()" aria-label="Search">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+          </form>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container my-5"  >
+      <h1>Crop Recommendation System<img src="/static/logo.png" alt="Crop Recommendation Logo" class="logo-img"> </h1>
+     
+     <!--      adding form-->
+      <form action="/predict" method="POST" class="form-container">
+        <div class="row">
+          <div class="col-md-4 form-group" >
+            <label for="Nitrogen">
+              <i class="fas fa-leaf"></i> Nitrogen
+            </label>
+            <div class="input-icon-wrapper">
+              <input type="number" id="Nitrogen" name="Nitrogen" placeholder="Enter Nitrogen" class="form-control" required step="0">
+            </div>
+          </div>
+          <div class="col-md-4 form-group">
+            <label for="Phosporus">
+              <i class="fas fa-flask"></i> Phosphorus
+            </label>
+            <div class="input-icon-wrapper">
+              <input type="number" id="Phosporus" name="Phosporus" placeholder="Enter Phosphorus" class="form-control" required step="0">
+            </div>
+          </div>
+          <div class="col-md-4 form-group">
+            <label for="Potassium">
+              <i class="fas fa-atom"></i> Potassium
+            </label>
+            <div class="input-icon-wrapper">
+              <input type="number" id="Potassium" name="Potassium" placeholder="Enter Potassium" class="form-control" required step="0">
+            </div>
+          </div>
+        </div>
+    
+        <div class="row mt-4">
+          <div class="col-md-4 form-group">
+            <label for="Temperature">
+              <i class="fas fa-thermometer-half"></i> Temperature (°C)
+            </label>
+            <div class="input-icon-wrapper">
+              <input type="number" id="Temperature" name="Temperature" placeholder="Enter Temperature in °C" class="form-control" required step="0.01">
+            </div>
+          </div>
+          <div class="col-md-4 form-group">
+            <label for="Humidity">
+              <i class="fas fa-tint"></i> Humidity (%)
+            </label>
+            <div class="input-icon-wrapper">
+              <input type="number" id="Humidity" name="Humidity" placeholder="Enter Humidity in %" class="form-control" required step="0.01">
+            </div>
+          </div>
+          <div class="col-md-4 form-group">
+            <label for="Ph">
+              <i class="fas fa-vial"></i> pH
+            </label>
+            <div class="input-icon-wrapper">
+              <input type="number" id="Ph" name="Ph" placeholder="Enter pH value" class="form-control" required step="0.01">
+            </div>
+          </div>
+        </div>
+    
+        <div class="row mt-4">
+          <div class="col-md-4 form-group">
+            <label for="Rainfall">
+              <i class="fas fa-cloud-rain"></i> Rainfall (mm)
+            </label>
+            <div class="input-icon-wrapper">
+              <input type="number" id="Rainfall" name="Rainfall" placeholder="Enter Rainfall in mm" class="form-control" required>
+            </div>
+          </div>
+        </div>
+    
+        <div class="row mt-4">
+          <div class="col-md-12 text-center">
+            <button type="submit" class="btn btn-primary btn-lg">
+              <i class="fas fa-search"></i> Get Recommendation
+            </button>
+          </div>
+        </div>
+      </form>
+    
+    
+<!-- Crop Recommendation Display -->
+{% if crop %}
+<div class="recommend-card">
+    <img src="{{ url_for('static', filename=crop.image) }}" alt="{{ crop.name }}">
+    <div class="card-body">
+        <h5 class="card-title">Recommended Crop</h5>
+        <h6 class="crop-name">{{ crop.name }}</h6>
+        <p class="card-text">{{ crop.description }}</p>
+    </div>
+</div>
+{% endif %}
+
+</div>
+
+
+   <!-- About Section -->
+<div id="about" class="about-container">
+  <h2 class="about-section-header">About the Crop Recommendation System</h2>
+  <div class="about-content">
+    <p><strong>Overview:</strong></p>
+    <p>This system uses machine learning to recommend suitable crops based on various environmental factors. By analyzing data such as nitrogen levels, phosphorus levels, potassium, soil pH, humidity, temperature, and rainfall, it provides accurate crop recommendations that help optimize agricultural output.</p>
+
+    <p><strong>Key Features:</strong></p>
+    <ul>
+      <li><i class="fas fa-leaf"></i> Crop suggestions based on soil nutrients, temperature, and humidity.</li>
+      <li><i class="fas fa-palette"></i> Real-time, dynamic recommendations tailored to specific locations.</li>
+      <li><i class="fas fa-robot"></i> Powered by machine learning models trained with large-scale agricultural datasets.</li>
+      <li><i class="fas fa-users"></i> User-friendly interface for easy input of environmental parameters.</li>
+    </ul>
+
+    
+    
+
+    
+
+     <!-- Crop Cards Section -->
+     <div id="cropInfoSection" class="row">
+      <!-- Crop cards will be inserted dynamically here -->
+    </div>
+
+  </div>
+</div>
+
+    <!-- Contact Section -->
+    <div id="contact" class="contact-container">
+      <h2 class="section-title">Contact Us</h2>
+      <form action="/submit_contact" method="POST">
+        <input type="text" name="name" placeholder="Your Name" required class="form-control">
+        <input type="email" name="email" placeholder="Your Email" required class="form-control">
+        <textarea name="message" placeholder="Your Message" required class="form-control" rows="4"></textarea>
+        <button type="submit">Send Message</button>
+      </form>
+    </div>
+     
+    <!-- Footer -->
+    <footer>
+      <!-- Footer -->
+<footer>
+  <div class="container">
+    <p>&copy; 2024 Crop Recommendation System</p>
+   
+      
+    <p><a href="#">Privacy Policy</a></p>
+  </div>
+</footer> </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+
+       <script>
+      // Crop data (with 22 crops and detailed descriptions)
+      const crops = [
+        { name: 'Rice', image: 'rice.jpg', description: 'Rice is a staple crop grown primarily in flooded fields. It thrives in hot, humid climates with regular rainfall and is grown worldwide for its seeds which serve as a primary food source.' },
+        { name: 'Maize', image: 'maize.jpg', description: 'Maize (corn) is a versatile crop grown in temperate climates. It is used for food, livestock feed, and industrial products. It grows best in well-drained soil with moderate rainfall.' },
+        { name: 'Jute', image: 'jute.jpg', description: 'Jute is a fiber crop grown mainly in tropical regions. It is used for making burlap sacks, ropes, and mats. Jute grows best in warm, wet conditions with plenty of sunlight.' },
+        { name: 'Cotton', image: 'cotton.jpg', description: 'Cotton is a key cash crop grown in warm climates. The fibers of the cotton plant are used to make textiles, while the seeds are processed for oil. Cotton requires a long, hot growing season.' },
+        { name: 'Coconut', image: 'coconut.jpg', description: 'Coconut is grown in tropical regions and is a versatile crop providing coconuts, coconut oil, and coir. It grows best in sandy soil with plenty of sunlight and rainfall.' },
+        { name: 'Papaya', image: 'papaya.jpg', description: 'Papaya is a tropical fruit crop that thrives in warm climates. It is rich in vitamins and is grown for both commercial and local consumption. Papaya grows quickly and requires well-drained, fertile soil.' },
+        { name: 'Orange', image: 'orange.jpg', description: 'Oranges are one of the most widely cultivated fruits. They grow best in warm climates with well-drained soil and moderate rainfall. Oranges are rich in vitamin C and are consumed worldwide.' },
+        { name: 'Apple', image: 'apple.jpg', description: 'Apple trees are grown in temperate climates and are known for their crisp fruit. They thrive in areas with cold winters and require well-drained, loamy soil to produce quality fruit.' },
+        { name: 'Muskmelon', image: 'muskmelon.jpg', description: 'Muskmelon is a sweet, fleshy fruit that grows in warm climates. It requires plenty of sunlight, moderate rainfall, and well-drained soil. It is popular for its juicy texture and refreshing taste.' },
+        { name: 'Watermelon', image: 'watermelon.jpg', description: 'Watermelon is a warm-season crop that requires high temperatures and plenty of water. It thrives in sandy soil and is grown for its juicy, sweet fruit consumed during summer.' },
+        { name: 'Grapes', image: 'grapes.jpg', description: 'Grapes are grown for fresh consumption and wine production. They require temperate climates with well-drained soil and moderate rainfall. Grapes need a long growing season to develop their sweet flavor.' },
+        { name: 'Mango', image: 'mango.jpg', description: 'Mango is a tropical fruit tree known for its sweet, juicy fruit. It thrives in hot, humid climates and requires well-drained, sandy loam soil with full sun exposure.' },
+        { name: 'Banana', image: 'banana.jpg', description: 'Bananas are grown in tropical regions and thrive in hot, humid climates. The plant requires regular rainfall and well-drained soil. Bananas are a staple food in many countries.' },
+        { name: 'Pomegranate', image: 'pomegranate.jpg', description: 'Pomegranate is a drought-tolerant fruit crop that grows best in dry, arid climates. The fruit is rich in antioxidants and is cultivated for both fresh consumption and juice production.' },
+        { name: 'Lentil', image: 'lentil.jpg', description: 'Lentil is a legume grown in temperate regions for its protein-rich seeds. It requires well-drained soil and moderate rainfall. Lentils are important for crop rotation as they help fix nitrogen in the soil.' },
+        { name: 'Blackgram', image: 'blackgram.jpg', description: 'Blackgram is a legume crop commonly grown in tropical and subtropical climates. It is an important source of protein and is often used in curries and dals in South Asia.' },
+        { name: 'Mungbean', image: 'mungbean.jpg', description: 'Mungbean is a short-duration crop grown for its small, green seeds. It thrives in warm climates with moderate rainfall and is commonly used in cooking and traditional medicine.' },
+        { name: 'Mothbeans', image: 'mothbeans.jpg', description: 'Mothbeans are drought-resistant legumes grown in arid regions. They are a key source of protein and are grown for their edible seeds which are used in curries and soups.' },
+        { name: 'Pigeonpeas', image: 'pigeonpeas.jpg', description: 'Pigeonpeas are leguminous plants grown in tropical and subtropical regions. They are important for food security in many developing countries due to their high protein content.' },
+        { name: 'Kidneybeans', image: 'kidneybeans.jpg', description: 'Kidney beans are grown for their edible seeds, which are rich in protein. They require a warm growing season and well-drained, fertile soil. Kidney beans are a staple food in many cultures.' },
+        { name: 'Chickpea', image: 'chickpea.jpg', description: 'Chickpea, also known as garbanzo bean, is a pulse crop grown in semi-arid regions. It is a major source of plant-based protein and is grown in rotation to improve soil health.' },
+        { name: 'Coffee', image: 'coffee.jpg', description: 'Coffee is a tropical crop grown primarily in regions with high altitudes. It requires a steady climate with moderate rainfall and is grown for its seeds, which are processed into the popular beverage.' }
+      ];
+
+      // Function to render crop information cards
+      function renderCrops(filteredCrops) {
+        const cropSection = document.getElementById('cropInfoSection');
+        cropSection.innerHTML = ''; // Clear existing cards
+        filteredCrops.forEach(crop => {
+          const cropCard = `
+            <div class="col-md-4 mb-3">
+              <div class="card">
+                <img src="/static/${crop.image}" class="card-img-top" alt="${crop.name}">
+                <div class="card-body">
+                  <h5 class="card-title">${crop.name}</h5>
+                  <p class="card-text">${crop.description}</p>
+                </div>
+              </div>
+            </div>
+          `;
+          cropSection.innerHTML += cropCard;
+        });
+      }
+
+      // Function to handle crop search
+      function searchCrops() {
+        const searchQuery = document.getElementById('cropSearchInput').value.toLowerCase();
+        const filteredCrops = crops.filter(crop => crop.name.toLowerCase().includes(searchQuery));
+        renderCrops(filteredCrops);
+      }
+
+      // Initial render of all crops
+      renderCrops(crops);
+    </script>
+  </body>
+</html>
