@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>YOLOv8 Dangerous Animal Detector</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <h1 class="title">🐾 YOLOv8 Animal Alert</h1>
+            <p class="subtitle">Upload a video to detect dangerous animals using AI.</p>
+
+            <form method="POST" enctype="multipart/form-data" class="upload-form">
+                <label for="video-upload" class="upload-label">
+                    <span>📁 Choose Video File</span>
+                    <input type="file" id="video-upload" name="video" accept="video/*" required>
+                </label>
+                <button type="submit" class="submit-btn">🚀 Analyze Now</button>
+            </form>
+
+            {% if output_video %}
+            <div class="result-box">
+                <h2 class="result-title">🎬 Detection Complete</h2>
+                <video controls class="video-player">
+                    <source src="/download/{{ output_video }}" type="video/mp4">
+                    Your browser does not support video playback.
+                </video>
+                <a class="download-btn" href="/download/{{ output_video }}" download>⬇ Download Video</a>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>

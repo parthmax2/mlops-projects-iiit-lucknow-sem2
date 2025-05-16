@@ -1,0 +1,121 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Rubik', sans-serif;
+    background: linear-gradient(to right, #ffd5db, #3f901f); /* yellow-greenish gradient */
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    max-width: 800px;
+    width: 95%;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card {
+    background: white;
+    padding: 40px;
+    border-radius: 25px;
+    box-shadow: 0 0 25px rgba(255, 255, 100, 0.5), 0 0 10px rgba(187, 255, 200, 0.4);
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.card:hover {
+    transform: scale(1.02);
+}
+
+.title {
+    background: linear-gradient(to right, #a8e063, #f8e71c); /* green-yellow gradient */
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 36px;
+    margin-bottom: 10px;
+    font-weight: 700;
+}
+
+.subtitle {
+    font-size: 18px;
+    color: #666;
+    margin-bottom: 30px;
+}
+
+.upload-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.upload-label {
+    padding: 15px 30px;
+    background-color: #f9fbe7;
+    border: 2px dashed #cddc39;
+    border-radius: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.upload-label:hover {
+    background-color: #f1f8e9;
+}
+
+.upload-label input[type="file"] {
+    display: none;
+}
+
+.submit-btn {
+    padding: 12px 28px;
+    font-size: 16px;
+    background-image: linear-gradient(to right, #fceabb, #f8b500);
+    color: #222;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: bold;
+    box-shadow: 0 4px 12px rgba(248, 181, 0, 0.3);
+    transition: 0.3s;
+}
+
+.submit-btn:hover {
+    background-image: linear-gradient(to right, #fcd34d, #eab308);
+}
+
+.result-box {
+    margin-top: 35px;
+}
+
+.result-title {
+    font-size: 24px;
+    color: #444;
+    margin-bottom: 15px;
+}
+
+.video-player {
+    width: 100%;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+}
+
+.download-btn {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 12px 25px;
+    background-color: #b5e61d;
+    color: #222;
+    border-radius: 10px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background 0.3s ease;
+}
+
+.download-btn:hover {
+    background-color: #a0d911;
+}

@@ -1,0 +1,17 @@
+train: data/data/images/train
+val: data/data/images/val
+
+nc: 11
+
+names:
+  - Tiger
+  - Snake
+  - Polar bear
+  - Lion
+  - Leopard
+  - Jaguar
+  - Fox
+  - Crocodile
+  - Cheetah
+  - Brown bear
+  - Bear
