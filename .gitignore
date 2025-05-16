@@ -1,0 +1,56 @@
+# Byte-compiled / cache
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+#assets
+assets/
+# Virtual environment
+venv/
+.env/
+.venv/
+ENV/
+env/
+*.env
+
+# Environment & secrets
+.env
+*.env.*
+*.secret
+secrets/
+
+# PyInstaller
+*.spec
+
+# Log files
+*.log
+logs/
+
+# Unit test / coverage
+.coverage
+.cache/
+.pytest_cache/
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+
+# IDEs and editors
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# OS-generated files
+.DS_Store
+Thumbs.db
+ehthumbs.db
+desktop.ini
+
+# Python distribution
+build/
+dist/
+*.egg-info/
+*.egg
+

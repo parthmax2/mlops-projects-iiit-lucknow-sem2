@@ -1,0 +1,801 @@
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="description"
+        content="FALCON is an AI-powered tool for verifying the authenticity of claims. Check if a claim is factual, misleading, or opinion-based using trusted data sources.">
+    <meta name="keywords"
+        content="AI fact-checking, claim verification, fake news detection, NLP models, fact-checking tool, verify claims">
+
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <title>FALCON - Fake news Analysis and Language Comprehension for Online Neutrality </title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: "Inter", sans-serif;
+            background-color: #0c1a36;
+            /* dark blue background */
+            color: #ffffff;
+            /* white text */
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Fade-in animation */
+        .fade-in {
+            animation: fadeIn 0.8s ease forwards;
+            opacity: 0;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Stylish button hover and focus */
+        button,
+        a.button-link {
+            position: relative;
+            overflow: hidden;
+            transition: color 0.3s ease;
+            z-index: 0;
+        }
+
+        button::before,
+        a.button-link::before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 300%;
+            background: #2563eb;
+            transform: translate(-50%, -50%) rotate(45deg);
+            transition: width 0.4s ease;
+            z-index: -1;
+            border-radius: 12px;
+        }
+
+        button:hover::before,
+        button:focus::before,
+        a.button-link:hover::before,
+        a.button-link:focus::before {
+            width: 250%;
+        }
+
+        button:hover,
+        button:focus,
+        a.button-link:hover,
+        a.button-link:focus {
+            color: #dbeafe;
+            outline: none;
+            box-shadow: 0 0 12px #3b82f6;
+        }
+
+        /* Input and textarea focus glow */
+        input:focus,
+        textarea:focus {
+            box-shadow: 0 0 8px #3b82f6;
+            border-color: #3b82f6;
+            background-color: #142a5c;
+            color: #ffffff;
+        }
+
+        /* Scrollbar styling for result panel */
+        .result-scrollbar::-webkit-scrollbar {
+            height: 6px;
+        }
+
+        .result-scrollbar::-webkit-scrollbar-track {
+            background: #142a5c;
+            border-radius: 3px;
+        }
+
+        .result-scrollbar::-webkit-scrollbar-thumb {
+            background: #3b82f6;
+            border-radius: 3px;
+        }
+
+        /* Override Tailwind default whites for backgrounds and borders */
+        header,
+        footer,
+        section.bg-white {
+            background-color: #142a5c;
+            /* darker blue slate */
+        }
+
+        header {
+            box-shadow: 0 2px 15px rgb(59 130 246 / 0.6);
+        }
+
+        footer {
+            border-top-color: #1e3a8a;
+        }
+
+        section.bg-white {
+            box-shadow: 0 4px 25px rgb(59 130 246 / 0.6);
+        }
+
+        input,
+        button,
+        textarea {
+            background-color: #0c1a36;
+            border-color: #3b82f6;
+            color: #ffffff;
+        }
+
+        input::placeholder,
+        textarea::placeholder {
+            color: #a5b4fc;
+        }
+
+        /* Result section styled like other sections */
+        #result {
+            background-color: #142a5c;
+            border-radius: 1rem;
+            box-shadow: 0 4px 25px rgb(59 130 246 / 0.6);
+            padding: 2.5rem 3rem;
+            max-width: 920px;
+            margin-left: auto;
+            margin-right: auto;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.5s ease;
+            color: #dbeafe;
+            font-family: "Inter", sans-serif;
+        }
+
+        #result.visible {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        #result h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: #bfdbfe;
+            text-align: center;
+            user-select: none;
+        }
+
+        #result p {
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+            user-select: text;
+        }
+
+        #result p span.font-semibold {
+            color: #93c5fd;
+            font-weight: 600;
+        }
+
+        /* Link styling in result */
+        #sources a {
+            color: #bfdbfe;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        #sources a:hover,
+        #sources a:focus {
+            color: #60a5fa;
+            outline: none;
+            text-decoration: underline;
+        }
+
+        /* Header nav link underline on hover with animation */
+        nav a {
+            position: relative;
+            padding-bottom: 0.25rem;
+            color: #ffffff;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        nav a::after {
+            content: "";
+            position: absolute;
+            width: 0%;
+            height: 3px;
+            bottom: 0;
+            left: 0;
+            background: linear-gradient(90deg, #3b82f6, #60a5fa);
+            transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: 3px;
+        }
+
+        nav a:hover,
+        nav a:focus {
+            color: #60a5fa;
+            outline: none;
+        }
+
+        nav a:hover::after,
+        nav a:focus::after {
+            width: 100%;
+        }
+
+        /* Loading animation - rotating rings */
+        #loadingScreen {
+            background-color: #0c1a36;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 50;
+        }
+
+        .loader {
+            position: relative;
+            width: 64px;
+            height: 64px;
+            animation: rotate 1.5s linear infinite;
+        }
+
+        .loader div {
+            position: absolute;
+            border: 4px solid transparent;
+            border-top-color: #3b82f6;
+            border-radius: 50%;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        .loader div:nth-child(1) {
+            width: 64px;
+            height: 64px;
+            top: 0;
+            left: 0;
+            animation-delay: -0.2s;
+        }
+
+        .loader div:nth-child(2) {
+            width: 48px;
+            height: 48px;
+            top: 8px;
+            left: 8px;
+            border-top-color: #60a5fa;
+            animation-delay: -0.4s;
+        }
+
+        .loader div:nth-child(3) {
+            width: 32px;
+            height: 32px;
+            top: 16px;
+            left: 16px;
+            border-top-color: #93c5fd;
+            animation-delay: -0.6s;
+        }
+
+        @keyframes rotate {
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes spin {
+
+            0%,
+            100% {
+                transform: rotate(0deg);
+            }
+
+            50% {
+                transform: rotate(180deg);
+            }
+        }
+
+        /* Form error styling */
+        #error {
+            color: #f87171;
+            font-weight: 600;
+            user-select: none;
+        }
+
+        /* Input and button width */
+        #formSection form input[type="text"] {
+            max-width: 900px;
+            width: 100%;
+        }
+
+        #formSection form button {
+            max-width: 900px;
+            width: 100%;
+        }
+
+        #formSection {
+            max-width: 920px;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 1024px) {
+            #formSection {
+                max-width: 100%;
+                padding-left: 1.5rem;
+                padding-right: 1.5rem;
+            }
+
+            #result {
+                max-width: 100%;
+                padding-left: 1.5rem;
+                padding-right: 1.5rem;
+            }
+        }
+
+        /* Loading overlay for analyze button */
+        #analyzeLoadingOverlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(14, 42, 94, 0.7);
+            border-radius: 0.5rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 10;
+        }
+
+        #analyzeLoadingOverlay.visible {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        /* Spinner for analyze button */
+        .btn-spinner {
+            border: 3px solid transparent;
+            border-top-color: #60a5fa;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            animation: spinBtn 1s linear infinite;
+        }
+
+        @keyframes spinBtn {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Position relative for button container */
+        .button-container {
+            position: relative;
+            display: inline-block;
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body class="flex flex-col min-h-screen">
+    <!-- Loading Screen -->
+    <div aria-label="Loading animation" class="fixed inset-0 flex justify-center items-center" id="loadingScreen">
+        <div class="loader" aria-hidden="true">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header aria-label="Primary Navigation" class="w-full bg-[#142a5c] shadow-md sticky top-0 z-40" role="banner">
+        <nav aria-label="Main navigation"
+            class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 flex items-center justify-between h-18">
+            <a aria-label="FALCON Home"
+                class="flex items-center space-x-3 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                href="#home">
+                <img alt="FALCON logo "
+                    class="w-50 h-50 rounded-md" height="64" loading="lazy" src="/static/falcon-logo.svg" width="100" />
+
+                <span class="text-3xl font-extrabold select-none text-white tracking-wide">FALCON</span>
+            </a>
+            <button aria-controls="primary-navigation" aria-expanded="false"
+                class="sm:hidden text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                id="navToggle">
+                <svg aria-hidden="true" class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path d="M4 8h16M4 16h16" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+                </svg>
+                <span class="sr-only">Toggle navigation menu</span>
+            </button>
+            <ul class="hidden sm:flex space-x-10 font-medium text-lg" id="primary-navigation">
+                <li>
+                    <a class="hover:text-[#60a5fa] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 rounded"
+                        href="#home">Home</a>
+                </li>
+                <li>
+                    <a class="hover:text-[#60a5fa] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 rounded"
+                        href="#about">About Us</a>
+                </li>
+                <li>
+                    <a class="hover:text-[#60a5fa] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 rounded"
+                        href="#contact">Contact Us</a>
+                </li>
+            </ul>
+        </nav>
+        <!-- Mobile menu -->
+        <div aria-label="Mobile navigation menu" class="sm:hidden bg-[#142a5c] border-t border-blue-900 hidden"
+            id="mobileMenu" role="menu">
+            <ul class="flex flex-col space-y-2 px-6 py-4 font-medium text-lg">
+                <li>
+                    <a class="block py-2 hover:text-[#60a5fa] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 rounded"
+                        href="#home" role="menuitem">Home</a>
+                </li>
+                <li>
+                    <a class="block py-2 hover:text-[#60a5fa] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 rounded"
+                        href="#about" role="menuitem">About Us</a>
+                </li>
+                <li>
+                    <a class="block py-2 hover:text-[#60a5fa] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 rounded"
+                        href="#contact" role="menuitem">Contact Us</a>
+                </li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-12 fade-in" id="mainContent" tabindex="-1">
+        <!-- Home Section -->
+        <section id="home" class="mb-20">
+            <div class="bg-[#142a5c] rounded-xl shadow-lg p-10 flex flex-col items-center text-center space-y-6">
+                <h1 class="text-5xl font-extrabold select-none leading-tight text-white drop-shadow-lg">
+                    FALCON : AI-Powered Claim Fact-Checker
+                </h1>
+                <p class="max-w-3xl text-lg text-blue-200">
+                    Instantly verify the accuracy of claims with FALCON, an advanced AI-powered fact-checking tool.
+                    Powered by NLP and trusted data sources, FALCON helps detect factual, misleading, or opinion-based
+                    content with ease.
+                </p><img alt="FALCON logo"
+                    class=" rounded-md" height="64" loading="lazy" src="/static/falcon-logo.svg" width="200" />
+                <a href="#formSection"
+                    class="button-link inline-block bg-transparent border-2 border-[#3b82f6] text-white font-semibold rounded-md py-3 px-8 transition focus:outline-none focus:ring-4 focus:ring-[#2563eb]"
+                    title="Start fact-checking claims now">
+                    Start Fact-Checking
+                </a>
+            </div>
+        </section>
+
+
+        <!-- Form Section -->
+        <section id="formSection" aria-labelledby="formTitle"
+            class="bg-[#142a5c] rounded-xl shadow-lg p-8 sm:p-10 mx-auto mb-20 max-w-[920px]">
+            <h2 class="sr-only" id="formTitle">Check your claim</h2>
+            <form class="space-y-6" id="claimForm" novalidate>
+                <label class="block text-white font-semibold text-lg mb-2" for="claim">Enter a Claim (max 350
+                    characters):</label>
+                <input aria-describedby="charCount"
+                    class="w-full rounded-md border border-[#3b82f6] px-4 py-3 text-white placeholder-blue-300 focus:outline-none focus:ring-2 focus:ring-[#60a5fa] focus:border-[#60a5fa] transition"
+                    id="claim" maxlength="350" name="claim" placeholder="Type your claim here..." required type="text"
+                    spellcheck="false" autocomplete="off" />
+                <p aria-atomic="true" aria-live="polite" class="text-sm text-blue-300 select-none" id="charCount">
+                    350 characters remaining
+                </p>
+                <div class="button-container">
+                    <button aria-label="Check Claim"
+                        class="button-link w-full bg-transparent border-2 border-[#3b82f6] text-white font-semibold rounded-md py-3 transition focus:outline-none focus:ring-4 focus:ring-[#2563eb] flex justify-center items-center space-x-3"
+                        type="submit">
+                        <span>Check Claim</span>
+                    </button>
+                    <div id="analyzeLoadingOverlay" aria-hidden="true" class="rounded-md">
+                        <div class="btn-spinner" aria-label="Loading"></div>
+                    </div>
+                </div>
+            </form>
+        </section>
+
+        <!-- Result Section -->
+        <section aria-atomic="true" aria-live="polite" id="result" tabindex="0" aria-label="Fact check result output"
+            class="mb-20">
+            <h2>Result</h2>
+            <div class="space-y-4">
+                <p><span class="font-semibold">Claim:</span> <span id="claimText"></span></p>
+                <p><span class="font-semibold">Classification:</span> <span id="classification"></span></p>
+                <p><span class="font-semibold">Tone:</span> <span id="tone"></span></p>
+                <p><span class="font-semibold">Intent:</span> <span id="intent"></span></p>
+                <p><span class="font-semibold">Fact-Check Result:</span> <span id="factCheckResult"></span></p>
+                <p><span class="font-semibold">Evidence:</span> <span id="evidence"></span></p>
+                <p><span class="font-semibold">Sources:</span> <span id="sources" class="underline"></span></p>
+                <p><span class="font-semibold">Reasoning:</span> <span id="reasoning"></span></p>
+            </div>
+        </section>
+
+        <section id="about" class="bg-[#142a5c] rounded-xl shadow-lg p-10 max-w-4xl mx-auto mb-20"
+            aria-labelledby="aboutTitle">
+            <h2 id="aboutTitle" class="text-3xl font-semibold mb-6 text-center select-none text-white drop-shadow-md">
+                About Us</h2>
+            <div class="flex flex-col sm:flex-row sm:space-x-10 items-center sm:items-start">
+                <!-- Icons & Short Descriptions -->
+                <div class="flex space-x-6 mb-8 sm:mb-0 justify-center sm:justify-start w-full sm:w-auto">
+                    <div class="flex flex-col items-center space-y-3 text-white drop-shadow-md max-w-xs">
+                        <i class="fas fa-robot fa-3x"></i>
+                        <p class="text-center">AI-powered fake news detection</p>
+                    </div>
+                    <div class="flex flex-col items-center space-y-3 text-white drop-shadow-md max-w-xs">
+                        <i class="fas fa-shield-alt fa-3x"></i>
+                        <p class="text-center">Reliable, trustworthy fact-checking</p>
+                    </div>
+                    <div class="flex flex-col items-center space-y-3 text-white drop-shadow-md max-w-xs">
+                        <i class="fas fa-users fa-3x"></i>
+                        <p class="text-center">Committed to transparency & accuracy</p>
+                    </div>
+                </div>
+                <!-- Short Description Text -->
+                <div class="text-blue-100 max-w-xl text-center sm:text-left">
+                    <p>
+                        FALCON is an AI-powered fact-checking platform designed to quickly verify claims, detect
+                        misinformation,
+                        and provide users with reliable results. It uses AI-driven analysis to classify claims, assess
+                        tone and intent,
+                        and fact-check the information based on trusted sources.
+                    </p>
+                    <p class="mt-4">
+                        Our goal is to empower users with accurate, timely information, helping to build a more
+                        informed, responsible society
+                        by combating fake news and misinformation effectively.
+                    </p>
+                    <p class="mt-4">
+                        FALCON is developed by <strong>Saksham Pathak</strong>, a student currently pursuing his
+                        Master's degree at IIIT Lucknow.
+                    </p>
+                </div>
+
+
+            </div>
+        </section>
+
+
+
+
+        <!-- Contact Us Section -->
+        <section id="contact" class="bg-[#142a5c] rounded-xl shadow-lg p-10 max-w-3xl mx-auto mb-20"
+            aria-labelledby="contactTitle">
+            <h2 id="contactTitle" class="text-3xl font-semibold mb-6 text-center select-none text-white drop-shadow-md">
+                Contact Us
+            </h2>
+            <form id="contactForm" class="space-y-6" novalidate>
+                <div>
+                    <label for="name" class="block mb-2 font-semibold text-white">Name</label>
+                    <input type="text" id="name" name="name" placeholder="Your name" required
+                        class="w-full rounded-md border border-[#3b82f6] px-4 py-3 text-white placeholder-blue-300 focus:outline-none focus:ring-2 focus:ring-[#60a5fa] focus:border-[#60a5fa] transition"
+                        spellcheck="false" autocomplete="off" />
+                </div>
+                <div>
+                    <label for="email" class="block mb-2 font-semibold text-white">Email</label>
+                    <input type="email" id="email" name="email" placeholder="yourname@gmail.com" required
+                        class="w-full rounded-md border border-[#3b82f6] px-4 py-3 text-white placeholder-blue-300 focus:outline-none focus:ring-2 focus:ring-[#60a5fa] focus:border-[#60a5fa] transition"
+                        spellcheck="false" autocomplete="off" />
+                </div>
+                <div>
+                    <label for="message" class="block mb-2 font-semibold text-white">Message</label>
+                    <textarea id="message" name="message" rows="4" placeholder="Your message" required
+                        class="w-full rounded-md border border-[#3b82f6] px-4 py-3 text-white placeholder-blue-300 focus:outline-none focus:ring-2 focus:ring-[#60a5fa] focus:border-[#60a5fa] transition resize-none"
+                        spellcheck="false"></textarea>
+                </div>
+                <button type="submit"
+                    class="button-link w-full bg-transparent border-2 border-[#3b82f6] text-white font-semibold rounded-md py-3 transition focus:outline-none focus:ring-4 focus:ring-[#2563eb]">
+                    Send Message
+                </button>
+            </form>
+            <div class="mt-8 text-center text-blue-300 select-none drop-shadow-md">
+                <p>If you have any questions or inquiries about FALCON or need assistance with using the platform, feel
+                    free to reach out to us.</p>
+                <p class="mt-4">Email: <a href="mailto:msa24021@iiit.ac.in"
+                        class="text-[#60a5fa]">msa24021@iiit.ac.in</a></p>
+                <p>Location: Saksham Pathak, IIIT Lucknow, India</p>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-[#142a5c] border-t border-blue-900 py-8 select-none" role="contentinfo">
+        <div
+            class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 flex flex-col sm:flex-row justify-between items-center space-y-4 sm:space-y-0">
+            <p class="text-blue-300 text-sm drop-shadow-md">© FALCON : AI-Powered Fake News Detector </p>
+            <div class="flex space-x-6 text-blue-300 hover:text-[#60a5fa] transition-colors drop-shadow-md">
+                <a aria-label="LinkedIn"
+                    class="text-xl focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 rounded"
+                    href="https://www.linkedin.com/in/sakshampathak" rel="noopener noreferrer" target="_blank">
+                    <i class="fab fa-linkedin-in"></i>
+                </a>
+                <a aria-label="GitHub"
+                    class="text-xl focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 rounded"
+                    href="https://github.com/parthmax2" rel="noopener noreferrer" target="_blank"><i
+                        class="fab fa-github"></i></a>
+                <a aria-label="Twitter"
+                    class="text-xl focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 rounded"
+                    href="https://twitter.com/Parthamx__" rel="noopener noreferrer" target="_blank"><i
+                        class="fab fa-twitter"></i></a>
+                <a aria-label="Instagram"
+                    class="text-xl focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 rounded"
+                    href="https://instagram.com/parthmax_" rel="noopener noreferrer" target="_blank"><i
+                        class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+        <div class="text-blue-200 text-sm mt-4 text-center">
+            <p>Developed by <a href="https://instagram.com/parthmax_"
+                    class="hover:text-[#60a5fa]"><strong>Parthamx</strong></a></p>
+        </div>
+
+
+        <p class="text-blue-300 text-sm mt-4 text-center">Follow us on social media for the latest updates!</p>
+
+    </footer>
+
+
+
+
+    <script>
+        // Mobile nav toggle
+        const navToggle = document.getElementById("navToggle");
+        const mobileMenu = document.getElementById("mobileMenu");
+        navToggle.addEventListener("click", () => {
+            const expanded =
+                navToggle.getAttribute("aria-expanded") === "true" || false;
+            navToggle.setAttribute("aria-expanded", !expanded);
+            mobileMenu.classList.toggle("hidden");
+        });
+
+        // Loading screen fade out after page load
+        window.addEventListener("load", () => {
+            const loadingScreen = document.getElementById("loadingScreen");
+            setTimeout(() => {
+                loadingScreen.style.opacity = "0";
+                loadingScreen.style.transition = "opacity 0.5s ease";
+                setTimeout(() => {
+                    loadingScreen.style.display = "none";
+                    // Focus main content for accessibility
+                    document.getElementById("mainContent").focus();
+                }, 500);
+            }, 1200);
+        });
+
+        // Character count update
+        const claimInput = document.getElementById("claim");
+        const charCount = document.getElementById("charCount");
+        claimInput.addEventListener("input", () => {
+            const length = claimInput.value.length;
+            const remaining = 350 - length;
+            charCount.textContent = remaining + " characters remaining";
+            if (remaining <= 0) {
+                charCount.classList.add("text-red-600");
+                charCount.classList.remove("text-blue-300");
+            } else {
+                charCount.classList.remove("text-red-600");
+                charCount.classList.add("text-blue-300");
+            }
+        });
+
+        // Form submission and result display with loading overlay on button
+        const form = document.getElementById("claimForm");
+        const resultSection = document.getElementById("result");
+        const errorDiv = document.createElement("div");
+        errorDiv.id = "error";
+        errorDiv.setAttribute("role", "alert");
+        errorDiv.setAttribute("aria-live", "assertive");
+        errorDiv.className =
+            "mt-6 max-w-3xl mx-auto font-semibold text-center select-none text-red-600";
+        form.after(errorDiv);
+        errorDiv.style.display = "none";
+
+        const analyzeLoadingOverlay = document.getElementById("analyzeLoadingOverlay");
+        const submitBtn = form.querySelector("button[type=submit]");
+
+        form.addEventListener("submit", async (e) => {
+            e.preventDefault();
+
+            const claimText = claimInput.value.trim();
+
+            if (claimText.length === 0) {
+                errorDiv.textContent = "Please enter a claim.";
+                errorDiv.style.display = "block";
+                resultSection.classList.remove("visible");
+                return;
+            }
+
+            if (claimText.length > 350) {
+                errorDiv.textContent = "Claim exceeds 350 characters!";
+                errorDiv.style.display = "block";
+                resultSection.classList.remove("visible");
+                return;
+            }
+
+            errorDiv.style.display = "none";
+
+            // Show loading overlay on button
+            submitBtn.disabled = true;
+            analyzeLoadingOverlay.classList.add("visible");
+            submitBtn.querySelector("span").textContent = "Checking...";
+
+            try {
+                const response = await fetch("/process_claim", {
+                    method: "POST",
+                    body: new URLSearchParams({ claim: claimText }),
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded",
+                    },
+                });
+
+                if (!response.ok) {
+                    throw new Error("Network response was not ok");
+                }
+
+                const data = await response.json();
+
+                if (data.error) {
+                    errorDiv.textContent = data.error;
+                    errorDiv.style.display = "block";
+                    resultSection.classList.remove("visible");
+                } else {
+                    errorDiv.style.display = "none";
+
+                    // Populate result fields
+                    document.getElementById("claimText").textContent = data.claim || "N/A";
+                    document.getElementById("classification").textContent =
+                        data.classification || "N/A";
+                    document.getElementById("tone").textContent = data.tone || "N/A";
+                    document.getElementById("intent").textContent = data.intent || "N/A";
+                    document.getElementById("factCheckResult").textContent =
+                        data.fact_check_result || "N/A";
+                    document.getElementById("evidence").textContent = data.evidence || "N/A";
+
+                    if (Array.isArray(data.sources) && data.sources.length > 0) {
+                        const sourcesContainer = document.getElementById("sources");
+                        sourcesContainer.innerHTML = "";
+                        data.sources.forEach((s, index) => {
+                            const a = document.createElement("a");
+                            a.href = s.url;
+                            a.target = "_blank";
+                            a.rel = "noopener noreferrer";
+                            a.className = "hover:text-[#60a5fa] focus:outline-none focus:ring-2 focus:ring-indigo-500 rounded";
+                            a.textContent = s.source;
+                            sourcesContainer.appendChild(a);
+                            if (index < data.sources.length - 1) {
+                                sourcesContainer.appendChild(document.createTextNode(", "));
+                            }
+                        });
+                    } else {
+                        document.getElementById("sources").textContent = "N/A";
+                    }
+
+                    document.getElementById("reasoning").textContent = data.reasoning || "N/A";
+
+                    // Show result with fade-in
+                    resultSection.classList.add("visible");
+                    resultSection.focus();
+                }
+            } catch (error) {
+                errorDiv.textContent = "An error occurred. Please try again later.";
+                errorDiv.style.display = "block";
+                resultSection.classList.remove("visible");
+            } finally {
+                submitBtn.disabled = false;
+                analyzeLoadingOverlay.classList.remove("visible");
+                submitBtn.querySelector("span").textContent = "Check Claim";
+            }
+        });
+
+        // Contact form submission (dummy)
+        const contactForm = document.getElementById("contactForm");
+        contactForm.addEventListener("submit", (e) => {
+            e.preventDefault();
+            alert(
+                "Thank you for reaching out! We will contact you soon. "
+            );
+            contactForm.reset();
+        });
+    </script>
+</body>
+
+</html>
