@@ -1,0 +1,22 @@
+name: stock-predictor
+
+channels:
+  - defaults
+  - conda-forge
+
+dependencies:
+  - python=3.10
+  - pandas
+  - numpy
+  - scikit-learn
+  - yfinance
+  - matplotlib
+  - keras
+  - tensorflow
+  - streamlit
+  - seaborn
+  - dvc
+  - pip
+  
+  - pip:
+      - plotly

@@ -1,0 +1,163 @@
+
+/* Main App Styling */
+:root {
+    --primary-dark: #121212;
+    --primary-light: #e0e0e0;
+    --accent-blue: #095ef0;
+    --accent-blue-hover: #121212;
+    --accent-green: #7162fa;
+    --accent-red: #f87171;
+    --text-light: #f1f5f9;
+    --text-subtle: #cbd5e1;
+    --success: #10ab49;
+    --warning: #facc15;
+    --danger: #ef4444;
+    --card-bg: #1e1e1e;
+    --card-border: #2c2c2c;
+    --neutral-line: #374151;
+    --shadow-soft: 0 2px 8px rgba(0, 0, 0, 0.25);
+    --transition-standard: all 0.2s ease-in-out;
+}
+
+/* App Background */
+.stApp {
+    background-color: var(--primary-dark);
+    color: var(--text-light);
+}
+
+/* Headings and Text */
+h1, h2, h3, h4 {
+    color: var(--text-light);
+    animation: fadeIn 1s;
+}
+
+p, label, .stSelectbox label {
+    color: var(--text-subtle) !important;
+}
+
+/* Buttons */
+.stButton > button {
+    background-color: var(--accent-blue);
+    color: white;
+    font-size: 1rem;
+    font-weight: 500;
+    border: none;
+    border-radius: 6px;
+    padding: 0.5rem 1.2rem;
+    transition: var(--transition-standard);
+}
+
+.stButton > button:hover {
+    background-color: var(--accent-green);
+    color: #121212;
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-soft);
+}
+
+/* Cards */
+.card, .stat-card {
+    background-color: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 10px;
+    padding: 1.2rem;
+    box-shadow: var(--shadow-soft);
+    margin-bottom: 1.5rem;
+    transition: transform 0.2s;
+}
+
+.stat-card:hover {
+    transform: translateY(-2px);
+}
+
+/* Recommendations */
+.recommendation-buy {
+    background-color: rgba(24, 237, 102, 0.763);
+    color: var(--success);
+    font-weight: 600;
+    padding: 12px;
+    text-align: center;
+    border-radius: 6px;
+}
+
+.recommendation-sell {
+    background-color: rgba(239, 68, 68, 0.2);
+    color: var(--danger);
+    font-weight: 600;
+    padding: 12px;
+    text-align: center;
+    border-radius: 6px;
+}
+
+.recommendation-hold {
+    background-color: rgba(250, 204, 21, 0.2);
+    color: var(--warning);
+    font-weight: 600;
+    padding: 12px;
+    text-align: center;
+    border-radius: 6px;
+}
+
+/* Value Indicators */
+.up-value {
+    color: var(--success);
+    font-weight: bold;
+}
+
+.down-value {
+    color: var(--danger);
+    font-weight: bold;
+}
+
+/* Select Boxes */
+.stSelectbox div[data-baseweb="select"] {
+    background-color: var(--card-bg);
+    color: var(--text-light);
+    border-radius: 6px;
+    font-size: 1rem;
+}
+
+.stSelectbox div[data-baseweb="select"] * {
+    color: var(--text-light);
+}
+
+/* Table */
+.dataframe {
+    background-color: var(--card-bg);
+    color: var(--text-light);
+    font-size: 0.95rem !important;
+    border: none !important;
+}
+
+/* Footer */
+.footer {
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--neutral-line);
+    color: var(--text-subtle);
+    font-size: 0.9rem;
+    text-align: center;
+}
+
+/* Layout */
+div.block-container {
+    padding-top: 2.5rem;
+}
+
+div[data-testid="stVerticalBlock"] > div {
+    padding-bottom: 1rem;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    0% {opacity: 0;}
+    100% {opacity: 1;}
+}
+
+@keyframes slideIn {
+    0% {transform: translateY(10px); opacity: 0;}
+    100% {transform: translateY(0); opacity: 1;}
+}
+
+.ticker-container {
+    animation: slideIn 0.8s ease;
+}
