@@ -4,36 +4,37 @@
 # 🚀 Project Title
 
 ## 👤 Author
-- **Name**: Your Full Name
-- **Enrollment No.**: msa24XXX
+- **Name**: Mansi Girdhar Dakhale
+- **Enrollment No.**: MSA24027
 - **Program**: MSc AI-ML
 - **Institute**: IIIT Lucknow
 - **Semester**: 2
 
 ## 🔗 Links
-- 📁 GitHub Repository: [Link](https://github.com/your-mlops-repo)
+- 📁 GitHub Repository: [Link](https://github.com/MansiDakhale/MRI_SYNTHESIS_PROJECT.git)
 - 📊 Project Presentation: [PPT](https://link-to-ppt.com)
 
 ## 🧠 Problem Statement
-Briefly describe the real-world problem your project addresses.
+Breast cancer diagnosis often relies on contrast-enhanced MRI (CeT1), which requires injecting gadolinium-based contrast agents that are costly, time-consuming, and potentially harmful to patients with kidney issues.
+This project addresses the need for contrast-free alternatives by developing a deep learning pipeline to synthesize CeT1 MRI scans directly from non-contrast PreT1 scans, preserving diagnostic quality without requiring contrast agents.
+
+To enhance clinical relevance, the model incorporates tumor segmentation guidance, ensuring the synthesized images are both anatomically and pathologically accurate
 
 ## 🛠️ Tech Stack
 - Programming: Python
-- ML Libraries: Scikit-learn, TensorFlow, etc.
-- MLOps Tools: DVC, MLflow, Docker, FastAPI
+- ML Libraries: Scikit-learn, Pytorch, etc.
+- MLOps Tools: DVC, Tensorboard, Streamlit
 
 ## ⚙️ MLOps Implementation
-- ✔️ Data versioning with DVC  
-- ✔️ Experiment tracking via MLflow  
-- ✔️ REST API for inference using FastAPI/Flask  
-- ✔️ Docker containerization for portability  
+-  Data versioning with DVC  
+-  Experiment tracking via Tensorboard 
+-  Deployment using Streamlit 
 
-## 📸 Screenshots (Optional)
-Insert architecture diagrams, API snapshots, UI screens, etc.
 
 ## 🗂️ Folder Structure (Optional)
 Short overview of your project repo structure.
 ```
+MRI_Synthesis_Project/ ├── data/ │ └── Resized_dataset/ ├── models/ │ ├── tsgan_generator.py │ ├── tsgan_discriminator.py │ └── unet3d_segmentation.py ├── utils/ │ ├── dataset_loader.py │ ├── losses.py │ ├── logger.py │ └── visualization.py ├── md_train.py # TSGAN Training script ├── segment_train.py # Tumor segmentation (3D U-Net) ├── generate_mri.py # Inference Script ├── app.py # Streamlit App for real-time inference ├── requirements.txt └── README.md
 
 ---
 
