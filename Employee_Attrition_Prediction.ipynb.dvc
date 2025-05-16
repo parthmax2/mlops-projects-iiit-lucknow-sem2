@@ -1,0 +1,5 @@
+outs:
+- md5: 528076d5ca28c56457cc7488803fa79b
+  size: 306420
+  hash: md5
+  path: Employee_Attrition_Prediction.ipynb

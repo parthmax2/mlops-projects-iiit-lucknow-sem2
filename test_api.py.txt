@@ -1,0 +1,12 @@
+import requests
+
+url = 'https://employee-attrition-prediction-19eq.onrender.com/predict'
+
+data = {
+    'features': ['Attrition', 'BusinessTravel', 'Department', 'EducationField', 'EmployeeCount', 'EmployeeNumber', 'EnvironmentSatisfaction', 'Gender', 'HourlyRate', 'JobInvolvement', 'JobLevel', 'JobRole', 'MaritalStatus', 'MonthlyRate', 'NumCompaniesWorked', 'Over18', 'PercentSalaryHike', 'RelationshipSatisfaction', 'StandardHours', 'StockOptionLevel','TotalWorkingYears', 'TrainingTimesLastYear', 'YearsSinceLastPromotion','YearsWithCurrManager']
+}
+
+response = requests.post(url, json=data)
+
+print("Response status code:", response.status_code)
+print("Response content:", response.text)
