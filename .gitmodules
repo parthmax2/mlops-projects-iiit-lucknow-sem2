@@ -1,0 +1,3 @@
+[submodule "College-Assistant"]
+	path = College-Assistant
+	url = https://github.com/dadoktor8/College-Assistant.git
