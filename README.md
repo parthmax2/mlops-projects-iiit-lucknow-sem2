@@ -1,6 +1,3 @@
-Sure! Here's a polished and detailed README for your Falcon project, incorporating the fallback model Deepseek and emphasizing the Gen AI nature:
-
----
 
 # Falcon: Fake News Analysis and Language Comprehension for Online Neutrality
 
@@ -109,8 +106,3 @@ uvicorn backend.main:app --port 8000
 * The system classifies the claim, detects tone and intent, performs fact verification if applicable, and returns a detailed verdict with supporting evidence.
 * The fallback model Deepseek is automatically used if GPT-4 is unavailable, ensuring consistent performance.
 
----
-
-## Contribution
-
-Contributions, bug reports, and feature requests are welcome! Feel free to open issues or pull requests.
