@@ -34,7 +34,7 @@ model = Sequential([
     Flatten(),
     Dense(128, activation='relu'),
     Dropout(0.3),
-    Dense(10, activation='softmax')  # 10 genres
+    Dense(10, activation='softmax')  
 ])
 
 model.compile(optimizer='adam',
