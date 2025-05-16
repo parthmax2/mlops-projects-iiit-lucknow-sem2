@@ -1,4 +1,5 @@
-# Due to an error in the submodule it returns a 404-error therefore, instead of adding the entire repo this is the link for verification [Link]([https://github.com/your-mlops-repo](https://github.com/MansiDakhale/MRI_SYNTHESIS_PROJECT))
+# Due to an error in the submodule it returns a 404-error therefore, instead of adding the entire repo this is the link for verification 
+[Link]([https://github.com/your-mlops-repo](https://github.com/MansiDakhale/MRI_SYNTHESIS_PROJECT))
 
 # 🚀 Project Title
 
