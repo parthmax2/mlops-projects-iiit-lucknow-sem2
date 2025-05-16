@@ -1,0 +1,48 @@
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #f9f9f9;
+    margin: 2rem;
+    color: #333;
+}
+
+h2, h3, h4 {
+    color: #2c3e50;
+}
+
+.qa-form-container, .qa-result-box {
+    background: white;
+    border: 1px solid #ddd;
+    padding: 1.5rem;
+    margin-top: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.qa-form input[type="text"] {
+    width: 100%;
+    padding: 0.5rem;
+    margin-top: 0.5rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.qa-form button {
+    background-color: #007bff;
+    color: white;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.qa-form button:hover {
+    background-color: #0056b3;
+}
+
+pre {
+    background: #f1f1f1;
+    padding: 0.5rem;
+    border-radius: 4px;
+    overflow-x: auto;
+}

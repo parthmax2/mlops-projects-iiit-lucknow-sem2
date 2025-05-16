@@ -1,0 +1,26 @@
+<!-- qa_result.html -->
+
+{% extends "base.html" %}
+
+{% block content %}
+<div class="qa-result-box">
+    <h3>📖 Answer</h3>
+    <p>{{ answer }}</p>
+
+    <h4>📊 RAG Evaluation</h4>
+    <ul>
+        <li><strong>Relevance Score:</strong> {{ evaluation.relevance }}</li>
+        <li><strong>Supporting Docs:</strong> {{ evaluation.supporting_docs }}</li>
+        <li><strong>Hallucination Score:</strong> {{ evaluation.hallucination_score }}</li>
+    </ul>
+
+    {% if sources %}
+    <h4>📄 Source Snippets</h4>
+    <ul>
+        {% for doc in sources %}
+        <li><pre>{{ doc.page_content }}</pre></li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+</div>
+{% endblock %}

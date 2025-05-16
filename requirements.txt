@@ -1,0 +1,22 @@
+# Core Dependencies
+fastapi
+uvicorn[standard]
+python-dotenv
+requests
+from-root
+
+# LangChain & LLM
+langchain
+langchain-openai
+sentence-transformers
+faiss-cpu
+langchain-community
+
+# PDF & Parsing
+PyMuPDF  # fitz
+lxml
+
+# Dev Tools
+black
+flake8
+pytest

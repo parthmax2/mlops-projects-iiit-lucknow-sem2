@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="qa-form-container">
+    <h2>Ask a Question About: "{{ title }}"</h2>
+    <form hx-post="/qa/ask" hx-target="#qa-result" class="qa-form">
+        <input type="hidden" name="title" value="{{ title }}">
+        <label for="question">Your Question:</label>
+        <input type="text" id="question" name="question" required 
+               placeholder="e.g., What is the main contribution?">
+        <button type="submit">Ask</button>
+    </form>
+</div>
+<div id="qa-result"></div>
+{% endblock %}

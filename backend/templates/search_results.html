@@ -1,0 +1,12 @@
+<ul>
+    {% for paper in papers %}
+        <li>
+            <strong>{{ paper.title }}</strong> ({{ paper.citations }} citations)
+            <form hx-post="/download" hx-target="body" style="display:inline;">
+                <input type="hidden" name="title" value="{{ paper.title }}">
+                <input type="hidden" name="pdf_url" value="{{ paper.pdf_url }}">
+                <button type="submit">Select</button>
+            </form>
+        </li>
+    {% endfor %}
+</ul>
