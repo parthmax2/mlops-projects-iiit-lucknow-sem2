@@ -3,3 +3,4 @@ minmaxscaler.pkl
 model.pkl
 standscaler.pkl
 /venv
+/static
