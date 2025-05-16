@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cyber Threat Detection</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap');
+
+    * {
+      box-sizing: border-box;
+      font-family: 'Orbitron', sans-serif;
+      color: #e0f7fa;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .grid {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background-image: 
+        linear-gradient(rgba(0, 229, 255, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 229, 255, 0.04) 1px, transparent 1px);
+      background-size: 40px 40px;
+      z-index: 0;
+      animation: moveGrid 30s linear infinite;
+    }
+
+    @keyframes moveGrid {
+      from { background-position: 0 0; }
+      to { background-position: 100px 100px; }
+    }
+
+    .glass-card {
+      z-index: 2;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 20px;
+      box-shadow: 0 0 30px rgba(0, 255, 255, 0.3);
+      backdrop-filter: blur(15px);
+      padding: 40px;
+      max-width: 700px;
+      width: 90%;
+      text-align: center;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      animation: float 6s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    h1 {
+      color: #00e5ff;
+      font-size: 32px;
+      margin-bottom: 20px;
+    }
+
+    #typewriter {
+      border-right: 2px solid #00e5ff;
+      white-space: nowrap;
+      overflow: hidden;
+      display: inline-block;
+      animation: typing 2s steps(30, end), blink 0.7s step-end infinite;
+    }
+
+    @keyframes typing {
+      from { width: 0 }
+      to { width: 100% }
+    }
+
+    @keyframes blink {
+      50% { border-color: transparent; }
+    }
+
+    textarea {
+      width: 100%;
+      height: 120px;
+      border-radius: 10px;
+      border: none;
+      padding: 10px;
+      font-size: 14px;
+      background: rgba(0, 0, 0, 0.5);
+      color: #e0f7fa;
+      outline: none;
+      resize: vertical;
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 10px;
+      background: linear-gradient(145deg, #00e5ff, #0055ff);
+      color: #000;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    button:hover {
+      background: linear-gradient(145deg, #00bcd4, #0039cb);
+      transform: scale(1.05);
+      box-shadow: 0 0 10px #00e5ff;
+    }
+
+    .loader {
+      border: 6px solid rgba(255, 255, 255, 0.1);
+      border-top: 6px solid #00e5ff;
+      border-right: 6px solid #00bcd4;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      animation: spin 0.8s linear infinite;
+      margin: 20px auto;
+      display: none;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .result {
+      margin-top: 20px;
+      font-size: 16px;
+      background: rgba(0, 255, 255, 0.1);
+      padding: 15px;
+      border-radius: 10px;
+      text-align: left;
+      white-space: pre-line;
+      line-height: 1.5;
+    }
+
+    @media (max-width: 600px) {
+      .glass-card {
+        padding: 20px;
+      }
+
+      h1 {
+        font-size: 24px;
+      }
+
+      .result {
+        font-size: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="grid"></div>
+
+  <div class="glass-card">
+    <h1><span id="typewriter">Cyber Threat Detector</span></h1>
+    <textarea id="features" placeholder="Enter comma-separated 78 features here..."></textarea>
+    <br/>
+    <button onclick="predictThreat()">Detect Threat</button>
+    <button onclick="simulateInput()" style="margin-left: 10px;">Simulate Input</button>
+    <div class="loader" id="loader"></div>
+    <div class="result" id="result"></div>
+  </div>
+
+  <script>
+    async function predictThreat() {
+      const input = document.getElementById("features").value;
+      const resultDiv = document.getElementById("result");
+      const loader = document.getElementById("loader");
+      resultDiv.innerHTML = "";
+
+      let features = input.split(",").map(Number);
+      if (features.length !== 78 || features.some(isNaN)) {
+        resultDiv.innerHTML = "⚠️ Please enter exactly 78 valid numeric features.";
+        return;
+      }
+
+      loader.style.display = "block";
+
+      try {
+        const res = await fetch("http://127.0.0.1:5001/predict", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ features }),
+        });
+
+        const data = await res.json();
+        loader.style.display = "none";
+
+        if (data.error) {
+          resultDiv.innerHTML = `❌ Error: ${data.error}`;
+        } else {
+          resultDiv.innerHTML = 
+`🛡️ Predicted Class: ${data.predicted_class}
+📈 Confidence: ${(data.confidence * 100).toFixed(2)}%
+
+📋 Threat Log:
+- Source: Internal system scan
+- Time: ${new Date().toLocaleTimeString()}
+- Analysis: ${data.predicted_class === "Attack" ? "⚠️ Potential cyber threat detected." : "✅ No threat detected."}`;
+        }
+      } catch (err) {
+        loader.style.display = "none";
+        resultDiv.innerHTML = `❌ Request failed. Check if your server is running.`;
+      }
+    }
+
+    function simulateInput() {
+      const arr = Array.from({ length: 78 }, () => (Math.random() * 100).toFixed(2));
+      document.getElementById("features").value = arr.join(",");
+    }
+  </script>
+</body>
+</html>

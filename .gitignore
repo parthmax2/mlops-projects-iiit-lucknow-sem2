@@ -1,5 +1,40 @@
+# Ignore virtual environments
 venv/
+.env/
+
+# Ignore Python cache files
 __pycache__/
 *.pyc
+*.pyo
+*.pyd
+
+# Ignore Jupyter/IPython checkpoints
+.ipynb_checkpoints/
+
+# Ignore DVC cache & configs
 .dvc/
-data/
+.dvc/cache/
+*.dvc
+.cache/
+
+# Ignore MLflow run artifacts
+mlruns/
+
+# Ignore dataset and models (except DVC tracked)
+data/*
+!data/.gitignore
+!data/raw.dvc
+
+models/
+*.pt
+*.pkl
+*.h5
+
+# Ignore logs and temporary files
+*.log
+*.tmp
+
+# VS Code & OS
+.vscode/
+.DS_Store
+Thumbs.db
