@@ -1,7 +1,7 @@
 
-# 💳 Credit Card Fraud Detection using Machine Learning
+#  Credit Card Fraud Detection using Machine Learning
 
-## 🧠 Overview
+##  Overview
 
 Credit and debit card fraud is a growing concern in the digital age. In **FY 2023**, over **29,000 cases** were reported in India alone. These frauds cause **huge financial losses** for banks and seriously impact **customer trust**.
 
@@ -9,7 +9,7 @@ This project aims to build a **machine learning system** that can **identify and
 
 ---
 
-## 🎯 Project Goals
+##  Project Goals
 
 - Detect fraudulent transactions using historical data.
 - Apply advanced machine learning models with high accuracy and recall.
@@ -19,11 +19,11 @@ This project aims to build a **machine learning system** that can **identify and
 
 ---
 
-## 📊 Dataset
+##  Dataset
 
-- 📁 Source: [Kaggle - Credit Card Fraud Detection](https://www.kaggle.com/datasets/mlg-ulb/creditcardfraud)
-- 🧾 Transactions: 284,808
-- 🔢 Features: 31
+-  Source: [Kaggle - Credit Card Fraud Detection](https://www.kaggle.com/datasets/mlg-ulb/creditcardfraud)
+-  Transactions: 284,808
+-  Features: 31
   - `Time`: Seconds from first transaction
   - `Amount`: Transaction amount
   - `Class`: 1 = Fraud, 0 = Non-Fraud
@@ -31,26 +31,26 @@ This project aims to build a **machine learning system** that can **identify and
 
 ---
 
-## 🛠️ Feature Engineering
+##  Feature Engineering
 
 New features were derived from the raw dataset to improve model learning:
 
-### ⏱ Time-Based Features:
+###  Time-Based Features:
 - `Hour of Transaction`
 - `Transactions in Last Hour`
 - `Average Amount per Hour`
 
-### 💰 Amount-Based Features:
+###  Amount-Based Features:
 - `Log_Amount` – log-transformed to reduce skewness
 - `Amount_ZScore` – helps detect unusual amounts
 
-### 📊 Statistical Features:
+###  Statistical Features:
 - `V_Mean`: Mean of V1–V28
 - `V_Std`: Standard deviation of V1–V28
 
 ---
 
-## ⚖️ Handling Imbalanced Data
+##  Handling Imbalanced Data
 
 Fraudulent transactions were very few in the dataset. To fix this, we used **SMOTE (Synthetic Minority Oversampling Technique)**:
 
@@ -64,7 +64,7 @@ This balances the classes by generating synthetic fraud cases.
 
 ---
 
-## 🤖 Models Used
+##  Models Used
 
 We trained multiple models and compared their performance:
 
@@ -78,7 +78,7 @@ We trained multiple models and compared their performance:
 
 ---
 
-## 📈 Model Evaluation Metrics
+##  Model Evaluation Metrics
 
 Each model was evaluated using:
 
@@ -100,7 +100,7 @@ F1-Score  : 0.88
 
 ---
 
-## 📉 Confusion Matrix
+##  Confusion Matrix
 
 | Actual \ Predicted | Non-Fraud | Fraud |
 |---------------------|-----------|-------|
@@ -114,7 +114,7 @@ F1-Score  : 0.88
 
 ---
 
-## 🧠 Neural Network Overview
+##  Neural Network Overview
 
 - Input layer: All features (Time, Amount, V1–V28, etc.)
 - Hidden layers: Process data to learn patterns
@@ -122,13 +122,13 @@ F1-Score  : 0.88
 
 ---
 
-## ✅ Conclusion
+##  Conclusion
 
 This project shows how machine learning can help detect fraudulent transactions with high accuracy. By using **feature engineering**, **SMOTE**, and **advanced models**, we can build systems that are fast, reliable, and useful in real-world banking applications.
 
 ---
 
-## 🚀 Future Improvements
+##  Future Improvements
 
 - Add Explainability with SHAP or LIME
 - Real-time prediction with Flask or FastAPI
