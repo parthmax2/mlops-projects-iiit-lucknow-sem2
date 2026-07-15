@@ -1,90 +1,41 @@
+# Due to an error in the submodule it returns a 404-error therefore, instead of adding the entire repo this is the link for verification 
+[Link](https://github.com/MansiDakhale/MRI_SYNTHESIS_PROJECT)
 
----
-
-#  MLOps Projects – MSc AI-ML | IIIT Lucknow | Semester 2
-
----
-
-## This repository showcases the MLOps course projects developed by MSc AI-ML students of IIIT Lucknow (Semester 2). Each project demonstrates an end-to-end machine learning solution using MLOps best practices like data versioning, experiment tracking, containerization, and reproducibility.
-
----
-
-## 🎯 Key Objectives
-
-* Build robust ML pipelines using **DVC**
-* Track experiments and models using **MLflow**
-* Deploy models with **FastAPI** or **Flask**
-* Containerize applications using **Docker**
-* Maintain reproducibility and version control using **Git**
-
----
-
-## 📁 Repository Structure
-
-```plaintext
-├── README.md
-├── projects/
-│   ├── student-name.md        # Individual project write-ups
-├── assets/                    # Architecture diagrams, screenshots, etc.
-└── .github/                   # (Optional) contribution guidelines, workflows
-```
-
----
-
-## 🚀 Project Submission Instructions
-
-🔁 **Each student must:**
-
-1. **Create a new Git branch** named after your enrollment number (e.g., `msa24021`).
-2. Add your project markdown file to the `projects/` folder (`projects/yourname.md`).
-3. Update the table below with your project details.
-4. **Push your branch** to this repository.
-
-| Student Name    | Enrollment No. | Project Title               | Branch Name | PPT Link                       | Summary                                 |
-| --------------- | -------------- | --------------------------- | ----------- | ------------------------------ | --------------------------------------- |
-| Example Student | msa24021       | Movie Recommendation System | `msa24021`  | [PPT](https://link-to-ppt.com) | Content-based + collaborative filtering |
-| ...             | ...            | ...                         | ...         | ...                            | ...                                     |
-
----
-
-## 📝 Project Documentation Template
-
-Inside your branch, create a file `projects/yourname.md` with the following structure:
-
-```markdown
 # 🚀 Project Title
+TSGAN: Tumor-Aware Synthesis of Contrast-Enhanced MRI Without Contrast Agent
 
 ## 👤 Author
-- **Name**: Your Full Name
-- **Enrollment No.**: msa24XXX
+- **Name**: Mansi Girdhar Dakhale
+- **Enrollment No.**: MSA24027
 - **Program**: MSc AI-ML
 - **Institute**: IIIT Lucknow
 - **Semester**: 2
 
 ## 🔗 Links
-- 📁 GitHub Repository: [Link](https://github.com/your-mlops-repo)
+- 📁 GitHub Repository: [Link](https://github.com/MansiDakhale/MRI_SYNTHESIS_PROJECT.git)
 - 📊 Project Presentation: [PPT](https://link-to-ppt.com)
 
 ## 🧠 Problem Statement
-Briefly describe the real-world problem your project addresses.
+Breast cancer diagnosis often relies on contrast-enhanced MRI (CeT1), which requires injecting gadolinium-based contrast agents that are costly, time-consuming, and potentially harmful to patients with kidney issues.
+This project addresses the need for contrast-free alternatives by developing a deep learning pipeline to synthesize CeT1 MRI scans directly from non-contrast PreT1 scans, preserving diagnostic quality without requiring contrast agents.
+
+To enhance clinical relevance, the model incorporates tumor segmentation guidance, ensuring the synthesized images are both anatomically and pathologically accurate
 
 ## 🛠️ Tech Stack
 - Programming: Python
-- ML Libraries: Scikit-learn, TensorFlow, etc.
-- MLOps Tools: DVC, MLflow, Docker, FastAPI
+- ML Libraries: Scikit-learn, Pytorch, etc.
+- MLOps Tools: DVC, Tensorboard, Streamlit
 
 ## ⚙️ MLOps Implementation
-- ✔️ Data versioning with DVC  
-- ✔️ Experiment tracking via MLflow  
-- ✔️ REST API for inference using FastAPI/Flask  
-- ✔️ Docker containerization for portability  
+-  Data versioning with DVC  
+-  Experiment tracking via Tensorboard 
+-  Deployment using Streamlit 
 
-## 📸 Screenshots (Optional)
-Insert architecture diagrams, API snapshots, UI screens, etc.
 
 ## 🗂️ Folder Structure (Optional)
 Short overview of your project repo structure.
 ```
+MRI_Synthesis_Project/ ├── data/ │ └── Resized_dataset/ ├── models/ │ ├── tsgan_generator.py │ ├── tsgan_discriminator.py │ └── unet3d_segmentation.py ├── utils/ │ ├── dataset_loader.py │ ├── losses.py │ ├── logger.py │ └── visualization.py ├── md_train.py # TSGAN Training script ├── segment_train.py # Tumor segmentation (3D U-Net) ├── generate_mri.py # Inference Script ├── app.py # Streamlit App for real-time inference ├── requirements.txt └── README.md
 
 ---
 
@@ -101,4 +52,3 @@ These projects are submitted as part of the **MLOps coursework** for the **MSc A
 * **Academic Year**: 2024–25
 
 ---
-
