@@ -1,0 +1,5 @@
+[core]
+    remote = gcsremote
+['remote "gcsremote"']
+    url = gs://paddy-leaf-dvc-storage
+    credentialpath = E:\meta-leaf-457010-f8-892fa6d16126.json
